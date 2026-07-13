@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String       @id @default(uuid())
+  name          String
+  email         String       @unique
+  google_id     String?      @unique
+  auth_provider AuthProvider
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  magicLinks    MagicLink[]
+
+  @@map("users")
+}
+
+enum AuthProvider {
+  GOOGLE
+  MAGIC_LINK
+}
+
+model MagicLink {
+  id         String   @id @default(uuid())
+  user       User     @relation(fields: [user_id], references: [id])
+  user_id    String
+  token_hash String
+  is_used    Boolean  @default(false)
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("magic_links")
+}
