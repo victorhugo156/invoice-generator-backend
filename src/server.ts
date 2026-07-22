@@ -4,6 +4,8 @@ import fastifyJwt from '@fastify/jwt'
 import { env } from './config/env'
 import { profile } from './http/routes/profile'
 import { auth } from './http/routes/auth'
+import { errorHandler } from './http/error-handler'
+import cookie from '@fastify/cookie'
 
 
 app.register(fastifyCors, {
@@ -19,8 +21,10 @@ app.register(fastifyJwt, {
   },
 })
 
-app.register(profile)
+app.register(cookie)
 app.register(auth)
+app.register(profile)
+app.setErrorHandler(errorHandler)
 
 app
   .listen({

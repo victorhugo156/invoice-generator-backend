@@ -18,7 +18,7 @@ export function errorHandler(
       message: error.message,
     })
   }
-
+  console.error('Unhandled error:', error)
   return reply.status(500).send({
     message: 'Internal server error',
   })
