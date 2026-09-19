@@ -9,6 +9,8 @@ const envSchema = z.object({
   JWT_SECRET: z.string(),
   EXPIRES_IN: z.string(),
   GOOGLE_CLIENT_ID: z.string(),
+  RESEND_API_KEY: z.string(),
+  CORS_ORIGIN: z.string(),
 })
 
 export const _env = envSchema.safeParse(process.env)

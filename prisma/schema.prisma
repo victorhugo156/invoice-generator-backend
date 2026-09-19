@@ -29,7 +29,7 @@ model MagicLink {
   id         String   @id @default(uuid())
   user       User     @relation(fields: [user_id], references: [id])
   user_id    String
-  token_hash String
+  token_hash String   @unique
   is_used    Boolean  @default(false)
   expiresAt  DateTime
   createdAt  DateTime @default(now())

@@ -14,14 +14,19 @@ app.register(fastifyCors, {
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 })
 
+app.register(cookie)
+
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
   sign: {
     expiresIn: env.EXPIRES_IN,
   },
+  cookie: {
+    cookieName: 'token',
+    signed: false,
+  },
 })
 
-app.register(cookie)
 app.register(auth)
 app.register(profile)
 app.setErrorHandler(errorHandler)
